@@ -1,0 +1,18 @@
+[Unit]
+Description=Network mount monitoring with the goal of avoiding system hanging.
+After=network.target
+StartLimitIntervalSec=30s
+StartLimitBurst=5
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/opt/network_mount_monitoring_project
+ExecStart=/opt/network_mount_monitoring_project/.venv/bin/python -m network_mount_monitoring
+Restart=on-failure
+RestartSec=5
+Environment="PYTHONUNBUFFERED=1"
+
+[Install]
+WantedBy=user@1000.service
